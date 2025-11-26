@@ -31,6 +31,15 @@ export const GAMES: GameMetadata[] = [
     externalUrl: 'https://huckhuck12.github.io/sheep_match/'
   },
   {
+    id: 'erase-box',
+    title: 'EraseBox',
+    description: '像素风解谜平台游戏。放置方块搭建道路，四个方块连线即可消除！',
+    category: 'Puzzle',
+    // 像素风、方块、解谜
+    thumbnail: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=600',
+    externalUrl: 'https://huckhuck12.github.io/erase_box/'
+  },
+  {
     id: 'tetris-3d',
     title: '3D 俄罗斯方块',
     description: '经典俄罗斯方块的 3D 进化版。体验立体空间消除。',
