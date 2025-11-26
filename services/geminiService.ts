@@ -1,6 +1,6 @@
 import { GoogleGenAI, Chat } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
+const apiKey = import.meta.env.API_KEY || '';
 
 // 如果可能的话，我们保留一个实例，或者按需创建。
 // 注意：在实际应用中，您可能需要更稳健地处理密钥轮换或验证。
@@ -23,7 +23,7 @@ export const createGameChat = (gameTitle: string): Chat | null => {
 export const streamResponse = async (chat: Chat, message: string, onChunk: (text: string) => void) => {
   try {
     const responseStream = await chat.sendMessageStream({ message });
-    
+
     for await (const chunk of responseStream) {
       if (chunk.text) {
         onChunk(chunk.text);

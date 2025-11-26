@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GameStatus } from '../../types';
-import { Play, RotateCcw, Pause } from 'lucide-react';
+import { Play, RotateCcw } from 'lucide-react';
 
 const CANVAS_SIZE = 400;
 const GRID_SIZE = 20;
@@ -44,7 +44,7 @@ const Snake: React.FC = () => {
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (status !== GameStatus.PLAYING) return;
-    
+
     switch (e.key) {
       case 'ArrowUp':
         if (velocity.y === 0) setVelocity({ x: 0, y: -1 });
@@ -154,15 +154,15 @@ const Snake: React.FC = () => {
     // 网格线 (可选的微妙效果)
     context.strokeStyle = '#2d1b4e';
     context.lineWidth = 0.5;
-    for(let i=0; i <= CANVAS_SIZE; i+= GRID_SIZE) {
-        context.beginPath();
-        context.moveTo(i, 0);
-        context.lineTo(i, CANVAS_SIZE);
-        context.stroke();
-        context.beginPath();
-        context.moveTo(0, i);
-        context.lineTo(CANVAS_SIZE, i);
-        context.stroke();
+    for (let i = 0; i <= CANVAS_SIZE; i += GRID_SIZE) {
+      context.beginPath();
+      context.moveTo(i, 0);
+      context.lineTo(i, CANVAS_SIZE);
+      context.stroke();
+      context.beginPath();
+      context.moveTo(0, i);
+      context.lineTo(CANVAS_SIZE, i);
+      context.stroke();
     }
 
   }, [snake, food]);
@@ -173,7 +173,7 @@ const Snake: React.FC = () => {
         <div>得分: {score}</div>
         <div>最高分: {highScore}</div>
       </div>
-      
+
       <div className="relative rounded-xl overflow-hidden border-2 border-arcade-500 shadow-[0_0_20px_rgba(121,40,202,0.3)]">
         <canvas
           ref={canvasRef}
@@ -181,7 +181,7 @@ const Snake: React.FC = () => {
           height={CANVAS_SIZE}
           className="block bg-arcade-900"
         />
-        
+
         {status === GameStatus.GAME_OVER && (
           <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center text-white animate-in fade-in">
             <h2 className="text-4xl font-bold text-red-500 mb-2">游戏结束</h2>

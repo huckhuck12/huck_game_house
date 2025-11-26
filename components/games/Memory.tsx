@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GameStatus } from '../../types';
-import { RefreshCw, Zap, Star, Heart, Cloud, Moon, Sun, Anchor } from 'lucide-react';
-
-const ICONS = [Zap, Star, Heart, Cloud, Moon, Sun, Anchor]; // 7 对 = 14 张卡片是奇数，让我们用 8 对来做 4x4
-import { Music } from 'lucide-react';
+import { RefreshCw, Zap, Star, Heart, Cloud, Moon, Sun, Anchor, Music } from 'lucide-react';
 
 const CARD_ICONS = [Zap, Star, Heart, Cloud, Moon, Sun, Anchor, Music];
 
@@ -23,7 +20,7 @@ const Memory: React.FC = () => {
   const initializeGame = () => {
     const doubled = [...CARD_ICONS, ...CARD_ICONS];
     const shuffled = doubled
-      .map((icon, index) => ({ icon, sort: Math.random() }))
+      .map((icon) => ({ icon, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map((item, index) => ({
         id: index,
@@ -31,7 +28,7 @@ const Memory: React.FC = () => {
         isFlipped: false,
         isMatched: false
       }));
-    
+
     setCards(shuffled);
     setFlippedCards([]);
     setMoves(0);
@@ -71,13 +68,13 @@ const Memory: React.FC = () => {
     if (firstCard && secondCard && firstCard.iconId === secondCard.iconId) {
       // 匹配成功
       setTimeout(() => {
-        setCards(prev => prev.map(card => 
-          card.id === firstId || card.id === secondId 
-            ? { ...card, isMatched: true, isFlipped: true } 
+        setCards(prev => prev.map(card =>
+          card.id === firstId || card.id === secondId
+            ? { ...card, isMatched: true, isFlipped: true }
             : card
         ));
         setFlippedCards([]);
-        
+
         // 检查胜利条件
         const allMatched = currentCards.every(c => c.isMatched || c.id === firstId || c.id === secondId);
         if (allMatched) setStatus(GameStatus.VICTORY);
@@ -86,9 +83,9 @@ const Memory: React.FC = () => {
     } else {
       // 不匹配
       setTimeout(() => {
-        setCards(prev => prev.map(card => 
-          card.id === firstId || card.id === secondId 
-            ? { ...card, isFlipped: false } 
+        setCards(prev => prev.map(card =>
+          card.id === firstId || card.id === secondId
+            ? { ...card, isFlipped: false }
             : card
         ));
         setFlippedCards([]);
@@ -100,7 +97,7 @@ const Memory: React.FC = () => {
     <div className="flex flex-col items-center w-full max-w-2xl mx-auto">
       <div className="flex justify-between items-center w-full mb-6 px-4">
         <div className="text-arcade-100 font-mono text-xl">步数: {moves}</div>
-        <button 
+        <button
           onClick={initializeGame}
           className="px-4 py-2 bg-arcade-700 hover:bg-arcade-500 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold"
         >

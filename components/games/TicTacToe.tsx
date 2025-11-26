@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { GameStatus } from '../../types';
 import { RefreshCw, X, Circle } from 'lucide-react';
 

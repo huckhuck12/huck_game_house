@@ -15,7 +15,7 @@ const ChatAssistant: React.FC<ChatAssistantProps> = ({ gameTitle }) => {
   const [isTyping, setIsTyping] = useState(false);
   const chatInstance = useRef<Chat | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const apiKey = process.env.API_KEY;
+  const apiKey = import.meta.env.API_KEY;
 
   useEffect(() => {
     if (apiKey) {
@@ -25,10 +25,10 @@ const ChatAssistant: React.FC<ChatAssistantProps> = ({ gameTitle }) => {
         text: `嗨！我是 **${gameTitle}** 的 AI 玩伴。遇到困难了吗？问我吧！`
       }]);
     } else {
-        setMessages([{
-            role: 'model',
-            text: `⚠ 未检测到 API 密钥。`
-        }]);
+      setMessages([{
+        role: 'model',
+        text: `⚠ 未检测到 API 密钥。`
+      }]);
     }
   }, [gameTitle, apiKey]);
 
@@ -38,7 +38,7 @@ const ChatAssistant: React.FC<ChatAssistantProps> = ({ gameTitle }) => {
 
   const handleSend = async () => {
     if (!input.trim() || !chatInstance.current) return;
-    
+
     const userMsg = input;
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
@@ -71,13 +71,13 @@ const ChatAssistant: React.FC<ChatAssistantProps> = ({ gameTitle }) => {
   };
 
   if (!apiKey) {
-      return (
-          <div className="h-full flex flex-col items-center justify-center p-6 text-center text-gray-400 bg-white">
-              <AlertCircle className="mb-2 text-gray-300" size={48} />
-              <p className="font-bold">AI 助手已休眠</p>
-              <p className="text-xs mt-1">请配置 API Key 以唤醒</p>
-          </div>
-      )
+    return (
+      <div className="h-full flex flex-col items-center justify-center p-6 text-center text-gray-400 bg-white">
+        <AlertCircle className="mb-2 text-gray-300" size={48} />
+        <p className="font-bold">AI 助手已休眠</p>
+        <p className="text-xs mt-1">请配置 API Key 以唤醒</p>
+      </div>
+    )
   }
 
   return (
@@ -103,19 +103,19 @@ const ChatAssistant: React.FC<ChatAssistantProps> = ({ gameTitle }) => {
             `}>
               {msg.role === 'user' ? <User size={16} /> : <Bot size={18} />}
             </div>
-            
+
             <div className={`
               max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm
-              ${msg.role === 'user' 
-                ? 'bg-blue-500 text-white rounded-tr-sm' 
+              ${msg.role === 'user'
+                ? 'bg-blue-500 text-white rounded-tr-sm'
                 : 'bg-white text-gray-700 rounded-tl-sm border border-gray-100'}
             `}>
               {msg.isLoading && !msg.text ? (
-                 <div className="flex gap-1 items-center h-5 px-2">
-                    <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce"></span>
-                    <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce delay-75"></span>
-                    <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce delay-150"></span>
-                 </div>
+                <div className="flex gap-1 items-center h-5 px-2">
+                  <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce"></span>
+                  <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce delay-75"></span>
+                  <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce delay-150"></span>
+                </div>
               ) : (
                 <div className="prose prose-sm max-w-none prose-p:my-0 prose-headings:my-1 [&>p]:text-inherit [&>h1]:text-inherit [&>h2]:text-inherit [&>h3]:text-inherit [&>strong]:text-inherit">
                   <ReactMarkdown>
